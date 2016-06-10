@@ -33,24 +33,60 @@ export default class Login extends Component {
     let username = this.state.username;
     let password = this.state.password;
     let btnLogin = this.state.btnLogin;
-    // alert('loading . .');
+
+    if (username == '' || password == '') {
+      alert('You must enter all field');
+      return ;
+    }
 
     this.props.navigator.push({
       name: 'loading'
     })
     // get the data from API
-    fetch('https://www.cscpro.org/suna/battle/777-2.json')
+    // fetch('https://www.cscpro.org/suna/battle/777-2.json')
+    //   .then((response) => response.text())
+    //   .then((responseText) => {
+    //     console.log(responseText);
+    //     alert('Hi '+responseText);
+    //     this.props.navigator.pop({
+    //       name: 'login'
+    //     });
+    //   })
+    //   .catch((error) => {
+    //     console.warn(error);
+    //   });
+    var obj = {  
+      method: 'POST',
+      headers: {
+        // 'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        // 'Origin': '',
+        'Host': 'api.goprint.id',
+        'app-api-key': 'timdonatindonesia',
+      },
+      body: JSON.stringify({
+        'email': username,
+        'password': password
+      })
+    };
+
+    fetch('http://api.goprint.id/v1/login', obj)
       .then((response) => response.text())
       .then((responseText) => {
         console.log(responseText);
-        alert('Hi '+responseText);
+        alert(responseText);
         this.props.navigator.pop({
           name: 'login'
         });
-      })
-      .catch((error) => {
-        console.warn(error);
       });
+    // .then(function(res) {
+    //   alert('hello' + res.json()['status']);
+    //   return res.json();
+    //  })
+    // .then(function(resJson) {
+    //   alert('hello' + resJson['status']);
+    //   return resJson;
+    //  });
 
   }
 

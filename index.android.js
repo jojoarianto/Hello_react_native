@@ -1,9 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- */
-
-// 'use strict';
+'use strict';
 
 import React, { Component } from 'react';
 import { AppRegistry, Navigator } from 'react-native';
@@ -19,7 +14,7 @@ class GoPrint_Admin extends Component {
       return ( <Loading navigator={navigator} /> )
     }
   }
-
+  
   render() {
     return (
       <Navigator
