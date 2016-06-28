@@ -39,22 +39,10 @@ export default class Login extends Component {
       return ;
     }
 
-    this.props.navigator.push({
+    this.props.navigator.replace({ 
       name: 'loading'
     })
-    // get the data from API
-    // fetch('https://www.cscpro.org/suna/battle/777-2.json')
-    //   .then((response) => response.text())
-    //   .then((responseText) => {
-    //     console.log(responseText);
-    //     alert('Hi '+responseText);
-    //     this.props.navigator.pop({
-    //       name: 'login'
-    //     });
-    //   })
-    //   .catch((error) => {
-    //     console.warn(error);
-    //   });
+
     var obj = {  
       method: 'POST',
       headers: {
@@ -73,21 +61,21 @@ export default class Login extends Component {
     fetch('http://api.goprint.id/v1/login', obj)
       .then((response) => response.text())
       .then((responseText) => {
-        console.log(responseText);
-        alert(responseText);
-        this.props.navigator.pop({
-          name: 'login'
-        });
+        var json = responseText;
+        json = JSON.parse(json);
+        if (json.status == 'false' || json.status == false) {
+          this.props.navigator.replace({ 
+            name: 'login'
+          });
+          alert('Sorry your email or password is invalid');
+        }
+        if (json.status == 'true' || json.status == true) {
+          this.props.navigator.replace({ 
+          // this.props.navigator.push({
+            name: 'home'
+          });
+        }
       });
-    // .then(function(res) {
-    //   alert('hello' + res.json()['status']);
-    //   return res.json();
-    //  })
-    // .then(function(resJson) {
-    //   alert('hello' + resJson['status']);
-    //   return resJson;
-    //  });
-
   }
 
   render() {
@@ -123,8 +111,8 @@ export default class Login extends Component {
           disabled={this.state.btnLogin}
         >
           <View
-          style={{width: 150, height: 40, marginTop:30,backgroundColor: 'gainsboro', borderRadius: 5}}>
-            <Text style={{margin: 10, textAlign: 'center', fontSize: 17 }}>LOGIN IN</Text>
+          style={{width: 250, height: 40, marginTop:30,backgroundColor: '#272822', borderRadius: 5}}>
+            <Text style={{margin: 10, textAlign: 'center', fontSize: 17, color: '#FFF' }}>LOGIN IN</Text>
           </View>
         </TouchableOpacity>
 
@@ -138,7 +126,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1,
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#ecf0f1',
   },
   welcome: {
     fontSize: 23,

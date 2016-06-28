@@ -4,15 +4,13 @@ import React, { Component } from 'react';
 import { AppRegistry, Navigator } from 'react-native';
 import Login from './js/login';
 import Loading from './js/loading';
+import Home from './js/home';
 
 class GoPrint_Admin extends Component {
   renderScene(route, navigator){
-    if (route.name == 'login') {
-      return ( <Login navigator={navigator} /> )
-    }
-    if (route.name == 'loading') {
-      return ( <Loading navigator={navigator} /> )
-    }
+    if (route.name == 'login') { return ( <Login navigator={navigator} /> ) }
+    if (route.name == 'loading') { return ( <Loading navigator={navigator} /> ) }
+    if (route.name == 'home') { return ( <Home navigator={navigator} /> ) }
   }
   
   render() {

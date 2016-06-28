@@ -1,10 +1,5 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
 
-// 'use strict';
+'use strict';
 
 import React, { Component } from 'react';
 
@@ -16,8 +11,6 @@ import {
   View,
   ProgressBarAndroid,
 } from 'react-native';
-
-var btnLogin;
 
 export default class Loading extends Component {
   state: {
@@ -51,7 +44,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1,
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#ecf0f1',
   },
   loadingText: {
     textAlign: 'center',
