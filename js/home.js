@@ -9,6 +9,8 @@ import {
 	TouchableHighlight,
 	TouchableOpacity,
 	View,
+	AsyncStorage,
+	ToolbarAndroid,
 } from 'react-native';
 
 export default class Home extends Component {
@@ -36,56 +38,77 @@ export default class Home extends Component {
 		.then((response) => response.text())
 		.then((responseText) => {
 			alert(responseText);
-			// var json = responseText;
-			// json = JSON.parse(json);
-			// if (json.status == 'false' || json.status == false) {
-			// 	this.props.navigator.replace({ 
-			// 		name: 'login'
-			// 	});
-			// }
-			// if (json.status == 'true' || json.status == true) {
-			// 	this.props.navigator.replace({ 
-			// 		name: 'home'
-			// 	});
-			// }
 		});
 
 	}
 
+	clickLogout(){
+        AsyncStorage.removeItem("email");
+        AsyncStorage.removeItem("user-key");
+
+		this.props.navigator.replace({ 
+	        name: 'login'
+	    });
+	}
+
 	render() {
 		return (
-			<ScrollView contentContainerStyle={styles.container} horizontal={this.state.scrollHorizontal}> 
-			<TouchableOpacity ref="btnListUser" onPress={this._onPressButton.bind(this)}>
-			<View
-			style={styles.buttonHome}>
-			<Text style={styles.textButtonHome}>LIST TO PRINT</Text>
-			</View>
-			</TouchableOpacity>
-			<TouchableOpacity ref="btnListUser">
-			<View
-			style={styles.buttonHome}>
-			<Text style={styles.textButtonHome}>LIST USERS</Text>
-			</View>
-			</TouchableOpacity>
-			<TouchableOpacity ref="btnListUser">
-			<View
-			style={styles.buttonHome}>
-			<Text style={styles.textButtonHome}>HISTORY PRINT</Text>
-			</View>
-			</TouchableOpacity>
+			<View style={styles.viewContainer}>
+			<ToolbarAndroid
+			  style={styles.toolbar}
+		      title="GoPrint Admin"
+		      titleColor="white"
+		      // actions={[{title: 'Settings', show: 'always'}]}
+		      />
+			<ScrollView contentContainerStyle={styles.container} horizontal={false}> 
+				<TouchableOpacity ref="btnListUser" onPress={this._onPressButton.bind(this)}>
+					<View
+					style={styles.buttonHome}>
+						<Text style={styles.textButtonHome}>LIST TO PRINT</Text>
+					</View>
+				</TouchableOpacity>
+				<TouchableOpacity ref="btnListUser">
+					<View
+					style={styles.buttonHome}>
+						<Text style={styles.textButtonHome}>LIST USERS</Text>
+					</View>
+				</TouchableOpacity>
+				<TouchableOpacity ref="btnListUser">
+					<View
+					style={styles.buttonHome}>
+						<Text style={styles.textButtonHome}>HISTORY PRINT</Text>
+					</View>
+				</TouchableOpacity>
+				<TouchableOpacity onPress={this.clickLogout.bind(this)}>
+					<View
+					style={styles.buttonHome}>
+						<Text style={styles.textButtonHome}>LOG OUT</Text>
+					</View>
+				</TouchableOpacity>
 			</ScrollView>
+			</View>
 			);
 	}
 }
 
 const styles = StyleSheet.create({
-	container: {
-		justifyContent: 'center',
+	
+	viewContainer: {
+		backgroundColor: '#ecf0f1',
 		flex: 1,
+	},
+	container: {
+		marginTop: 150,
+		justifyContent: 'center',
 		alignItems: 'center',
+		// height: 100%,
 		backgroundColor: '#ecf0f1',
 	},
+	toolbar: {
+		backgroundColor: '#2E6AA0',
+	    height: 56,
+	},
 	contentContainer: { paddingVertical: 20 },
-	buttonHome: { width: 250, height: 40, marginTop:30, backgroundColor: '#272822', borderRadius: 5 },
+	buttonHome: { width: 250, height: 40, marginTop:30, backgroundColor: '#555650', borderRadius: 5 },
 	textButtonHome: {margin: 10, textAlign: 'center', fontSize: 17, color: '#FFF' },
 });

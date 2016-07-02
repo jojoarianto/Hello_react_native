@@ -7,21 +7,26 @@ import {
   StyleSheet,
   View,
   ProgressBarAndroid,
+  AsyncStorage,
 } from 'react-native';
 
-export default class Loading extends Component {
-  state: {
-    username: '';
-    password: '';
-  }
+export default class SplashScreen extends Component {
 
   constructor(props) {
     super(props);
 
-    this.state = {
-      username: '',
-      password: '',
-    }
+    // get status is user was login?
+    AsyncStorage.getItem("email").then((value) => {
+      if (value != "" && value != null) { 
+        this.props.navigator.replace({ 
+          name: 'home'
+        });
+      } else {
+        this.props.navigator.replace({ 
+          name: 'login'
+        });
+      }
+    }).done;
   }
 
   render() {

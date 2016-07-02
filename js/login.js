@@ -9,6 +9,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  AsyncStorage,
 } from 'react-native';
 
 var btnLogin;
@@ -70,8 +71,9 @@ export default class Login extends Component {
           alert('Sorry your email or password is invalid');
         }
         if (json.status == 'true' || json.status == true) {
+          AsyncStorage.setItem("email", username);
+
           this.props.navigator.replace({ 
-          // this.props.navigator.push({
             name: 'home'
           });
         }
@@ -84,7 +86,7 @@ export default class Login extends Component {
       <View style={styles.container}>
 
         <Text style={styles.welcome}>
-          Welcome to GoPrint Admin!
+          GoPrint Admin
         </Text>
 
         <Text style={styles.instructions}>
@@ -96,7 +98,7 @@ export default class Login extends Component {
           onChangeText={(username) => this.setState({username})}
           value={this.state.username}
           underlineColorAndroid='gray'
-          placeholder="your email" />
+          placeholder="email" />
 
         <TextInput style={styles.input} 
           ref= "password"
@@ -104,14 +106,14 @@ export default class Login extends Component {
           value={this.state.password}
           password={true}
           underlineColorAndroid='gray'
-          placeholder="your password" />
+          placeholder="password" />
 
         <TouchableOpacity onPress={this.clickMe.bind(this)}
           ref="btnLogin"
           disabled={this.state.btnLogin}
         >
           <View
-          style={{width: 250, height: 40, marginTop:30,backgroundColor: '#272822', borderRadius: 5}}>
+          style={{width: 250, height: 40, marginTop:30,backgroundColor: '#555650', borderRadius: 5}}>
             <Text style={{margin: 10, textAlign: 'center', fontSize: 17, color: '#FFF' }}>LOGIN IN</Text>
           </View>
         </TouchableOpacity>
@@ -129,14 +131,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#ecf0f1',
   },
   welcome: {
-    fontSize: 23,
+    fontSize: 40,
+    color: "#2E6AA0",
     textAlign: 'center',
-    margin: 10,
+    marginBottom: 5,
   },
   instructions: {
     textAlign: 'center',
     color: '#333333',
-    marginBottom: 25,
+    marginBottom: 40,
   },
   input: {
     marginTop: 5,
